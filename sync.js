@@ -1,5 +1,5 @@
 import sequelize from './config/database.js';
-import './models/main.js';
+import './models/relation.js';
 
 async function createTables() {
   try {
