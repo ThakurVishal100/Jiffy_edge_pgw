@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgres:alpine
+    container_name: jiffy_edge_postgres_db
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - ${POSTGRES_PORT}:5432  
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DATABASE} -U $${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 30s
+      retries: 5 
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    attach: false
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+volumes:
+  postgres_data:
