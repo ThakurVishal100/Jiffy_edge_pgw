@@ -24,10 +24,10 @@ async function seedDatabase() {
     //     tbl_price_points
     //   RESTART IDENTITY CASCADE;
     // `);
-    // console.log('✅ All tables cleared.');
+    // console.log('All tables cleared.');
 
     // 2. SEED LEVEL 0: Tables with no dependencies
-    // console.log('🌱 Seeding Level 0 tables...');
+    // console.log('Seeding Level 0 tables...');
     
     const services = await ServiceInfo.bulkCreate([
       { service_name: 'JiffyPay Wallet', status: 'active' },
@@ -58,7 +58,7 @@ async function seedDatabase() {
     console.log(`Created ${services.length} services, ${clients.length} clients, and ${interfaces.length} interfaces.`);
 
     // 3. SEED LEVEL 1: Tables with dependencies on Level 0
-    console.log('🌱 Seeding Level 1 tables...');
+    console.log('Seeding Level 1 tables...');
     
     // Get IDs to link
     const [service1, service2, service3, service4, service5, service6] = services.map(s => s.service_id);
@@ -97,6 +97,7 @@ async function seedDatabase() {
         validity_start: today, // Starts today
         validity_end: distantFuture // Open-ended subscription
       },
+      
       {
         plan_name: 'One-Time Card Fee',
         payment_category: 'one time',
@@ -105,6 +106,7 @@ async function seedDatabase() {
         validity_start: lastMonth, // Plan was available last month
         validity_end: threeYears // Ends 3 years from now
       },
+
       {
         plan_name: 'Test Wallet Top-up',
         payment_category: 'Addon-topup',
@@ -113,6 +115,7 @@ async function seedDatabase() {
         validity_start: today,
         validity_end: nextYear // Valid for exactly one year
       },
+
       {
         plan_name: 'Payouts API Plan',
         payment_category: 'Subscription',
@@ -121,6 +124,7 @@ async function seedDatabase() {
         validity_start: today,
         validity_end: distantFuture // Open-ended subscription
       },
+
       {
         plan_name: 'Test KYC Service',
         payment_category: 'one time',
@@ -129,6 +133,7 @@ async function seedDatabase() {
         validity_start: lastMonth,
         validity_end: distantFuture // Effectively forever
       },
+
       {
         plan_name: 'UPI Onetime (Client 5)',
         payment_category: 'one time',
@@ -141,7 +146,7 @@ async function seedDatabase() {
     console.log(`Created ${apiInfos.length} API infos and ${plans.length} payment plans.`);
     
     // 4. SEED LEVEL 2: Tables with dependencies on Level 1
-    console.log('🌱 Seeding Level 2 tables (with fallback logic)...');
+    console.log(' Seeding Level 2 tables (with fallback logic)...');
 
     // Get plan IDs to link
     const [plan1, plan2, plan3, plan4, plan5, plan6] = plans.map(p => p.pplan_id);
